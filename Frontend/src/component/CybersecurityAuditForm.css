@@ -12,9 +12,11 @@ body {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.9);
     border-radius: 12px;
-    box-shadow: var(--shadow-lg);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 h2 {
@@ -47,6 +49,7 @@ h2:after {
     background-color: var(--white);
     transition: var(--transition-base);
     animation: fadeIn 0.5s ease-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
 .section:hover {
@@ -58,7 +61,7 @@ h3 {
     padding: 1rem;
     border-radius: 6px;
     color: var(--white);
-    background-color: var(--primary-dark);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
     font-weight: 500;
     text-align: center;
     letter-spacing: 1px;
@@ -112,11 +115,13 @@ h3 {
     z-index: 2;
     position: relative;
     transition: var(--transition-base);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .progress-step.active .step-number {
-    background-color: var(--primary-dark);
+    background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
     transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .step-label {
@@ -275,6 +280,7 @@ input[type="checkbox"]:checked, input[type="radio"]:checked {
     justify-content: center;
     z-index: 1000;
     backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
 }
 
 /* Footer */

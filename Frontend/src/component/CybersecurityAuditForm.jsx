@@ -23,6 +23,8 @@ const CybersecurityAuditForm = () => {
     e.preventDefault();
     setIsSubmitting(true);
     
+    console.log("Submitting form data:", formData);
+    
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
@@ -73,7 +75,13 @@ const CybersecurityAuditForm = () => {
           <h3>ORGANIZATION DETAILS</h3>
           <div className="form-group">
             <label>Organization Name:</label>
-            <input type="text" name="organizationName" className="input" onChange={handleChange} />
+            <input 
+              type="text" 
+              name="organizationName" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.organizationName || ''}
+            />
           </div>
 
           <div className="form-group">
@@ -90,42 +98,90 @@ const CybersecurityAuditForm = () => {
           </div>
           <div className="form-group">
             <label>Address:</label>
-            <input type="text" name="address" className="input" onChange={handleChange} />
+            <input 
+              type="text" 
+              name="address" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.address || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Contact Person:</label>
-            <input type="text" name="contactPerson" className="input" onChange={handleChange} />
+            <input 
+              type="text" 
+              name="contactPerson" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.contactPerson || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Designation:</label>
-            <input type="text" name="designation" className="input" onChange={handleChange} />
+            <input 
+              type="text" 
+              name="designation" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.designation || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Contact Number:</label>
-            <input type="text" name="contactNumber" className="input" onChange={handleChange} />
+            <input 
+              type="text" 
+              name="contactNumber" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.contactNumber || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Email:</label>
-            <input type="email" name="email" className="input" onChange={handleChange} />
+            <input 
+              type="email" 
+              name="email" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.email || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Total Number of Employees:</label>
-            <input type="number" name="totalEmployees" className="input" onChange={handleChange} />
+            <input 
+              type="number" 
+              name="totalEmployees" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.totalEmployees || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Number of Departments:</label>
-            <input type="number" name="numDepartments" className="input" onChange={handleChange} />
+            <input 
+              type="number" 
+              name="numDepartments" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.numDepartments || ''}
+            />
           </div>
 
           <div className="form-group">
             <label>Number of Branches (if any):</label>
-            <input type="number" name="numBranches" className="input" onChange={handleChange} />
+            <input 
+              type="number" 
+              name="numBranches" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.numBranches || ''}
+            />
           </div>
         </div>
 
@@ -134,7 +190,13 @@ const CybersecurityAuditForm = () => {
           <h3>IT INFRASTRUCTURE</h3>
           <div className="form-group">
             <label>Total Number of Computers:</label>
-            <input type="number" name="totalComputers" className="input" onChange={handleChange} />
+            <input 
+              type="number" 
+              name="totalComputers" 
+              className="input" 
+              onChange={handleChange}
+              value={formData.totalComputers || ''}
+            />
           </div>
 
           <div className="form-group">
@@ -356,8 +418,6 @@ const CybersecurityAuditForm = () => {
           onClose={() => setShowToast(false)} 
         />
       )}
-
-      <p className="footer-text">For any queries, contact us at: contact@endsecure.in | www.endsecure.in</p>
     </div>
   );
 };

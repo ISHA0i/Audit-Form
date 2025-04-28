@@ -7,16 +7,7 @@ function App() {
     <div className="App">
       <header>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <h1>Cybersecurity Audit Portal</h1>
-            <nav>
-              <ul style={{ display: 'flex', gap: '1.5rem', listStyle: 'none' }}>
-                <li><a href="#" style={{ color: 'var(--white)' }}>Home</a></li>
-                <li><a href="#" style={{ color: 'var(--white)' }}>About</a></li>
-                <li><a href="#" style={{ color: 'var(--white)' }}>Contact</a></li>
-              </ul>
-            </nav>
-          </div>
+          <h1>Cybersecurity Audit Portal</h1>
         </div>
       </header>
       
@@ -27,9 +18,14 @@ function App() {
       </main>
       
       <footer>
+        <div class="footer">
+
         <div className="container text-center">
-          <p style={{ marginBottom: '0.5rem' }}>© {new Date().getFullYear()} Cybersecurity Audit Portal. All rights reserved.</p>
           <p style={{ fontSize: '0.875rem', color: 'var(--neutral-1)' }}>Secure • Reliable • Professional</p>
+          <p style={{ fontSize: '0.875rem', color: 'var(--neutral-1)', marginTop: '1rem' }}>
+            For any queries, contact us at: <a href="mailto:contact@endsecure.in" style={{ color: 'var(--neutral-1)' }}>contact@endsecure.in</a> | <a href="https://www.endsecure.in" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--neutral-1)' }}>www.endsecure.in</a>
+          </p>
+        </div>
         </div>
       </footer>
     </div>

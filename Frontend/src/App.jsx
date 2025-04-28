@@ -1,15 +1,15 @@
-import React from "react";
-import CybersecurityAuditForm from "./component/CybersecurityAuditForm"; // Import the form component
-import './App.css';
+// import { useState } from 'react'
+import './App.css'
+import CybersecurityAuditForm from './CybersecurityAuditForm'
 
 function App() {
+ 
+
   return (
-    <div className="App">
-      <div>
-      <CybersecurityAuditForm />
-    </div>
-    </div>
-  );
+    <> 
+    <CybersecurityAuditForm />
+    </>
+  )
 }
 
-export default App;
+export default App

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./CybersecurityAuditForm.css";
 
 const CybersecurityAuditForm = () => {
-  const [formData, setFormData] = useState({});
+  const [ setFormData] = useState({});
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;

@@ -56,7 +56,6 @@ const CybersecurityAuditForm = () => {
             onClick={() => setCurrentSection(i + 1)}
           >
             <div className="step-number">{i + 1}</div>
-            <div className="step-label">Section {i + 1}</div>
           </div>
         ))}
       </div>

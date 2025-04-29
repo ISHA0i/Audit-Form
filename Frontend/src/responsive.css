@@ -1,0 +1,324 @@
+/* Responsive styles for the Cybersecurity Audit Portal */
+
+/* Base styles (mobile first) */
+:root {
+  --form-width: 100%;
+  --section-padding: 1rem;
+  --border-radius: 8px;
+  --input-height: 44px;
+}
+
+/* Container styles */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-primary);
+}
+
+.form-container {
+  width: 100%;
+  flex: 1;
+  padding: 0.75rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Form elements */
+.audit-form {
+  width: 100%;
+  max-width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.form-section {
+  padding: var(--section-padding);
+  margin-bottom: 0.5rem;
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--neutral-1);
+  transition: var(--transition-base);
+}
+
+.form-section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.section-header {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: 0.875rem 1rem;
+  margin: -1rem -1rem 1rem -1rem;
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  font-weight: 600;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+  position: relative;
+}
+
+/* Input fields */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea,
+select {
+  width: 100%;
+  min-height: var(--input-height);
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  box-sizing: border-box;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 16px;
+  background-color: var(--white);
+  color: var(--text-primary);
+  transition: var(--transition-base);
+}
+
+input:hover,
+textarea:hover,
+select:hover {
+  border-color: var(--primary-medium);
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--primary-dark);
+  box-shadow: 0 0 0 3px var(--focus-ring);
+  outline: none;
+}
+
+/* Labels */
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+}
+
+/* Radio and Checkbox containers */
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.radio-option,
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: var(--input-height);
+  padding: 0.5rem;
+  background-color: var(--white);
+  border: 1px solid var(--neutral-1);
+  border-radius: var(--border-radius);
+  transition: var(--transition-base);
+}
+
+.radio-option:hover,
+.checkbox-option:hover {
+  background-color: var(--background-primary);
+  border-color: var(--primary-medium);
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+}
+
+.button-container button {
+  min-height: var(--input-height);
+  font-size: 1rem;
+  width: 100%;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-base);
+  padding: 0.75rem 1.5rem;
+  font-weight: 500;
+}
+
+.button-container button:hover {
+  background-color: var(--primary-medium);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-container button:active {
+  transform: translateY(0);
+}
+
+/* Toast notifications */
+.toast-container {
+  width: 90%;
+  max-width: 400px;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+/* Loading indicator */
+.loading-container {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: var(--text-primary);
+}
+
+/* Mobile specific adjustments */
+@media screen and (max-width: 480px) {
+  .form-container {
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .form-section {
+    padding: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section-header {
+    padding: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    padding: 0.75rem;
+    font-size: 16px;
+    margin-bottom: 0.375rem;
+  }
+
+  .form-group label {
+    font-size: 0.9rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    padding: 0.375rem 0.75rem;
+  }
+
+  .button-container {
+    padding: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .button-container button {
+    padding: 0.75rem 1rem;
+  }
+}
+
+/* Tablet styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .form-container {
+    padding: 1rem;
+  }
+
+  .button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-container button {
+    width: auto;
+    min-width: 120px;
+  }
+
+  .radio-group,
+  .checkbox-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    flex: 0 0 calc(50% - 0.5rem);
+  }
+}
+
+/* Desktop styles */
+@media screen and (min-width: 769px) {
+  .form-container {
+    max-width: 1200px;
+    padding: 2rem;
+  }
+
+  .form-section {
+    padding: 1.5rem;
+  }
+
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1rem;
+    align-items: start;
+  }
+
+  .button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-container button {
+    width: auto;
+    min-width: 150px;
+  }
+
+  .radio-group,
+  .checkbox-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    flex: 0 0 calc(33.33% - 0.5rem);
+  }
+} 

@@ -502,4 +502,25 @@ input[type="radio"] {
     color: var(--primary-dark);
     margin-left: 0.25rem;
 }
+
+/* Required field indicator */
+.required {
+  color: #e74c3c;
+  margin-left: 3px;
+}
+
+/* Error styles */
+.has-error input, 
+.has-error select, 
+.has-error textarea {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 1px #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 5px;
+  margin-left: 2px;
+}
   

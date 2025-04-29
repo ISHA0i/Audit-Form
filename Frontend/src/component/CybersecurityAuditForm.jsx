@@ -3,12 +3,15 @@ import "./CybersecurityAuditForm.css";
 import Button from "./Button";
 import Toast from "./Toast";
 import LoadingIndicator from "./LoadingIndicator";
+import api from "../utils/api";
 
 const CybersecurityAuditForm = () => {
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showToast, setShowToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState({ type: 'success', message: 'Form submitted successfully!' });
   const [currentSection, setCurrentSection] = useState(1);
+  const [formErrors, setFormErrors] = useState({});
   const totalSections = 8;
 
   const handleChange = (e) => {
@@ -17,25 +20,82 @@ const CybersecurityAuditForm = () => {
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
+    
+    // Clear error for this field if it exists
+    if (formErrors[name]) {
+      setFormErrors(prev => {
+        const newErrors = {...prev};
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
   };
 
-  const handleSubmit = (e) => {
+  const validateSection = () => {
+    const errors = {};
+    
+    // Section 1 validation - Organization details
+    if (currentSection === 1) {
+      if (!formData.organizationName) errors.organizationName = 'Organization name is required';
+      if (!formData.contactPerson) errors.contactPerson = 'Contact person is required';
+      if (!formData.contactNumber) errors.contactNumber = 'Contact number is required';
+      if (!formData.email) {
+        errors.email = 'Email is required';
+      } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+        errors.email = 'Email is invalid';
+      }
+    }
+    
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validate current section before submission
+    if (!validateSection()) {
+      setToastMessage({
+        type: 'error',
+        message: 'Please fill in all required fields'
+      });
+      setShowToast(true);
+      return;
+    }
+    
     setIsSubmitting(true);
     
-    console.log("Submitting form data:", formData);
-    
-    // Simulate API call
-    setTimeout(() => {
+    try {
+      const response = await api.submitAudit(formData);
+      setToastMessage({
+        type: 'success',
+        message: 'Audit form submitted successfully!'
+      });
+      console.log("Submission successful:", response);
+    } catch (error) {
+      setToastMessage({
+        type: 'error',
+        message: `Submission failed: ${error.message}`
+      });
+      console.error("Submission error:", error);
+    } finally {
       setIsSubmitting(false);
       setShowToast(true);
-    }, 1500);
+    }
   };
 
   const nextSection = () => {
-    if (currentSection < totalSections) {
-      setCurrentSection(currentSection + 1);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (validateSection()) {
+      if (currentSection < totalSections) {
+        setCurrentSection(currentSection + 1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    } else {
+      setToastMessage({
+        type: 'error',
+        message: 'Please fill in all required fields'
+      });
+      setShowToast(true);
     }
   };
 
@@ -72,8 +132,8 @@ const CybersecurityAuditForm = () => {
         {/* Section 1: Organization Details */}
         <div className={`section ${currentSection === 1 ? 'active-section' : 'hidden-section'}`}>
           <h3>ORGANIZATION DETAILS</h3>
-          <div className="form-group">
-            <label>Organization Name:</label>
+          <div className={`form-group ${formErrors.organizationName ? 'has-error' : ''}`}>
+            <label>Organization Name: <span className="required">*</span></label>
             <input 
               type="text" 
               name="organizationName" 
@@ -81,6 +141,7 @@ const CybersecurityAuditForm = () => {
               onChange={handleChange}
               value={formData.organizationName || ''}
             />
+            {formErrors.organizationName && <div className="error-message">{formErrors.organizationName}</div>}
           </div>
 
           <div className="form-group">
@@ -106,8 +167,8 @@ const CybersecurityAuditForm = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>Contact Person:</label>
+          <div className={`form-group ${formErrors.contactPerson ? 'has-error' : ''}`}>
+            <label>Contact Person: <span className="required">*</span></label>
             <input 
               type="text" 
               name="contactPerson" 
@@ -115,6 +176,7 @@ const CybersecurityAuditForm = () => {
               onChange={handleChange}
               value={formData.contactPerson || ''}
             />
+            {formErrors.contactPerson && <div className="error-message">{formErrors.contactPerson}</div>}
           </div>
 
           <div className="form-group">
@@ -128,8 +190,8 @@ const CybersecurityAuditForm = () => {
             />
           </div>
 
-          <div className="form-group">
-            <label>Contact Number:</label>
+          <div className={`form-group ${formErrors.contactNumber ? 'has-error' : ''}`}>
+            <label>Contact Number: <span className="required">*</span></label>
             <input 
               type="text" 
               name="contactNumber" 
@@ -137,10 +199,11 @@ const CybersecurityAuditForm = () => {
               onChange={handleChange}
               value={formData.contactNumber || ''}
             />
+            {formErrors.contactNumber && <div className="error-message">{formErrors.contactNumber}</div>}
           </div>
 
-          <div className="form-group">
-            <label>Email:</label>
+          <div className={`form-group ${formErrors.email ? 'has-error' : ''}`}>
+            <label>Email: <span className="required">*</span></label>
             <input 
               type="email" 
               name="email" 
@@ -148,6 +211,7 @@ const CybersecurityAuditForm = () => {
               onChange={handleChange}
               value={formData.email || ''}
             />
+            {formErrors.email && <div className="error-message">{formErrors.email}</div>}
           </div>
 
           <div className="form-group">
@@ -412,8 +476,8 @@ const CybersecurityAuditForm = () => {
       
       {showToast && (
         <Toast 
-          type="success" 
-          message="Audit form submitted successfully!" 
+          type={toastMessage.type} 
+          message={toastMessage.message} 
           onClose={() => setShowToast(false)} 
         />
       )}

@@ -1,12 +1,39 @@
-# React + Vite
+# Cybersecurity Audit Form Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is the frontend for the Cybersecurity Audit Form application, featuring a multi-step form for collecting detailed cybersecurity audit information.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Clean, focused form interface without navigation distractions
+- Multi-step form with progress indicator
+- Form validation for required fields
+- Toast notifications for feedback
+- API integration with backend
 
-## Expanding the ESLint configuration
+## Setup and Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+2. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+3. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## Structure
+
+- `src/component/` - React components for the form
+- `src/utils/` - Utility functions, including API client
+- `src/App.jsx` - Main application component
+- `src/main.jsx` - Application entry point
+
+## Backend Connection
+
+The frontend is configured to connect to the backend at `http://localhost:5000`. If your backend runs on a different port, update the `API_BASE_URL` in `src/utils/api.js`.

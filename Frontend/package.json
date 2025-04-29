@@ -1,7 +1,7 @@
 {
-  "name": "package.json",
+  "name": "cybersecurity-audit-form-frontend",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
-    "package.json": "file:",
+    "cybersecurity-audit-form-frontend": "file:",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

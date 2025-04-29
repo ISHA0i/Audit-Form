@@ -14,9 +14,9 @@
 
 body {
   min-height: 100vh;
-  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-medium) 100%);
+  background: #f8f9fa;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  color: var(--text-primary);
+  color: #333;
 }
 
 #root {
@@ -27,33 +27,19 @@ body {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  color: var(--text-primary);
+  color: #2c3e50;
   line-height: 1.2;
   margin-bottom: 1rem;
 }
-h3{
-  color: var(--neutral-2);
+
+h3 {
+  color: #555;
 }
+
 p {
-  color: var(--text-secondary);
+  color: #666;
   line-height: 1.6;
   margin-bottom: 1rem;
-}
-
-p footer {
-  color: var(--neutral-1);
-  padding: 1.5rem 0;
-}
-
-a {
-  color: var(--primary-dark);
-  text-decoration: none;
-  transition: var(--transition-base);
-}
-
-a:hover {
-  color: var(--primary-medium);
-  text-decoration: underline;
 }
 
 /* Layout */
@@ -63,55 +49,11 @@ a:hover {
   min-height: 100vh;
 }
 
-main {
+/* Main content area */
+.app-content {
   flex: 1;
-  padding: 2rem 0;
-}
-
-header {
-  padding: 2rem 0 1rem;
-  text-align: center;
-}
-
-header h1 {
-  color: var(--white);
-  font-size: 2.5rem;
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-footer {
-  padding: 1.5rem 0;
-  color: var(--neutral-1);
-  margin-top: 2rem;
-  text-align: center;
-}
-
-/* Utility Classes */
-.text-center {
-  text-align: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-/* Cards and Sections */
-.card {
   padding: 2rem;
-  background-color: var(--neutral-2);
-  border-radius: 8px;
-  box-shadow: var(--shadow-md);
-  margin-bottom: 1.5rem;
-  transition: var(--transition-base);
-}
-
-.card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
+  background-color: #f8f9fa;
 }
 
 /* Animations */
@@ -139,19 +81,11 @@ footer {
   main {
     padding: 1rem 0;
   }
-
-  .card {
-    padding: 1.5rem;
-  }
-  
-  header h1 {
-    font-size: 2rem;
-  }
 }
 
 /* Focus Styles */
 :focus-visible {
-  outline: 2px solid var(--primary-dark);
+  outline: 2px solid #3498db;
   outline-offset: 2px;
 }
 
@@ -162,48 +96,14 @@ footer {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background-primary);
+  background: #f8f9fa;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-medium);
+  background: #95a5a6;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-dark);
-}
-
-/* Logo and brand styling */
-.logo {
-  height: 3em;
-  will-change: filter;
-  transition: var(--transition-base);
-}
-
-.logo:hover {
-  filter: drop-shadow(0 0 1em var(--primary-medium));
-}
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .logo.spin {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-/* App */
-.App {
-  background: transparent;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  background: #7f8c8d;
 }

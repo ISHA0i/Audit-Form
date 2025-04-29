@@ -1,16 +1,14 @@
-import React from 'react'
-import CybersecurityAuditForm from './component/CybersecurityAuditForm'
-import './App.css'
-import './responsive.css'
+import './App.css';
+import CybersecurityAuditForm from './component/CybersecurityAuditForm';
 
 function App() {
   return (
     <div className="app-container">
-      <div className="form-container">
+      <main className="app-content">
         <CybersecurityAuditForm />
-      </div>
+      </main>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

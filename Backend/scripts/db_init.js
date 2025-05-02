@@ -19,6 +19,14 @@ const dbConfig = {
   port: process.env.DB_PORT || 3306
 };
 
+console.log('Database configuration:', {
+  host: dbConfig.host,
+  user: dbConfig.user,
+  port: dbConfig.port,
+  // Not printing password for security
+  database: process.env.DB_NAME || 'cybersecurity_audit'
+});
+
 // Database and tables creation queries
 const createDatabase = `CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME || 'cybersecurity_audit'};`;
 
@@ -57,11 +65,14 @@ async function initializeDatabase() {
       port: dbConfig.port
     });
     
+    console.log('Connection created successfully');
+    
     // Create database if it doesn't exist
     console.log('Creating database...');
     await connection.query(createDatabase);
     
     // Use the database
+    console.log('Selecting database...');
     await connection.query(useDatabaseQuery);
     
     // Create tables
@@ -72,9 +83,24 @@ async function initializeDatabase() {
     
   } catch (error) {
     console.error('Error initializing database:', error);
+    if (error.code === 'ECONNREFUSED') {
+      console.error('Could not connect to MySQL server. Please make sure the server is running and accessible.');
+    } else if (error.code === 'ER_ACCESS_DENIED_ERROR') {
+      console.error('Access denied. Please check your MySQL username and password.');
+    } else {
+      console.error('Detailed error:', {
+        message: error.message,
+        code: error.code,
+        errno: error.errno,
+        sqlState: error.sqlState,
+        sqlMessage: error.sqlMessage
+      });
+    }
   } finally {
     if (connection) {
+      console.log('Closing database connection...');
       await connection.end();
+      console.log('Connection closed');
     }
   }
 }

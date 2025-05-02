@@ -3,9 +3,21 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const dotenv = require('dotenv');
+const { testConnection } = require('./config/db');
 
 // Load environment variables
 dotenv.config();
+
+// Test database connection
+testConnection()
+  .then((connected) => {
+    if (!connected) {
+      console.warn('Warning: Database connection failed, server starting without database');
+    }
+  })
+  .catch(err => {
+    console.error('Error testing database connection:', err);
+  });
 
 // Import routes
 const auditRoutes = require('./routes/auditRoutes');

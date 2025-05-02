@@ -4,6 +4,7 @@ class AuditModel {
   // Create a new audit record
   async createAudit(auditData) {
     try {
+      // Handle undefined values by replacing them with null
       const [result] = await pool.execute(
         `INSERT INTO audits (
           organization_name, industry_type, address, contact_person, 
@@ -11,16 +12,16 @@ class AuditModel {
           num_departments, num_branches, form_data, submission_date
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())`,
         [
-          auditData.organizationName,
-          auditData.industryType,
-          auditData.address,
-          auditData.contactPerson,
-          auditData.designation,
-          auditData.contactNumber,
-          auditData.email,
-          auditData.totalEmployees,
-          auditData.numDepartments,
-          auditData.numBranches,
+          auditData.organizationName || null,
+          auditData.industryType || null,
+          auditData.address || null,
+          auditData.contactPerson || null,
+          auditData.designation || null,
+          auditData.contactNumber || null,
+          auditData.email || null,
+          auditData.totalEmployees || null,
+          auditData.numDepartments || null,
+          auditData.numBranches || null,
           JSON.stringify(auditData) // Store the entire form data as JSON
         ]
       );
@@ -90,16 +91,16 @@ class AuditModel {
           form_data = ?
         WHERE id = ?`,
         [
-          auditData.organizationName,
-          auditData.industryType,
-          auditData.address,
-          auditData.contactPerson,
-          auditData.designation,
-          auditData.contactNumber,
-          auditData.email,
-          auditData.totalEmployees,
-          auditData.numDepartments,
-          auditData.numBranches,
+          auditData.organizationName || null,
+          auditData.industryType || null,
+          auditData.address || null,
+          auditData.contactPerson || null,
+          auditData.designation || null,
+          auditData.contactNumber || null,
+          auditData.email || null,
+          auditData.totalEmployees || null,
+          auditData.numDepartments || null,
+          auditData.numBranches || null,
           JSON.stringify(auditData),
           id
         ]

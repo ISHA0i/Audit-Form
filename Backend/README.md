@@ -23,27 +23,39 @@ This is the backend API for the Cybersecurity Audit Form application built with 
    npm install
    ```
 
-3. Create a `.env` file in the root directory with the following variables:
+3. Run the setup script to create .env file from template:
    ```
-   PORT=5000
-   NODE_ENV=development
+   npm run setup
+   ```
+
+4. Update the `.env` file with your MySQL credentials:
+   ```
    DB_HOST=localhost
    DB_USER=your_username
    DB_PASSWORD=your_password
    DB_NAME=cybersecurity_audit
    DB_PORT=3306
-   CORS_ORIGIN=http://localhost:5173
    ```
 
-4. Initialize the database:
+5. Initialize the database:
    ```
-   node scripts/db_init.js
+   npm run init-db
    ```
 
-5. Start the development server:
+6. Start the development server:
    ```
    npm run dev
    ```
+
+## Troubleshooting MySQL Connection
+
+If you encounter issues connecting to MySQL:
+
+1. Ensure MySQL server is running on your machine
+2. Verify the MySQL credentials in your `.env` file
+3. Make sure the MySQL port (default: 3306) is correct and not blocked by firewall
+4. Try connecting to MySQL using a client tool to verify credentials
+5. Check MySQL user privileges - the user must have permission to create databases
 
 ## API Endpoints
 

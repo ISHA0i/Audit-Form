@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import CybersecurityAuditForm from './component/CybersecurityAuditForm';
-import AdminPanel from './component/AdminPanel';
+import CybersecurityAuditForm from './components/CybersecurityAuditForm';
+import AdminPanel from './components/AdminPanel';
 
 function App() {
   return (

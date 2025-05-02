@@ -1,5 +1,6 @@
 const auditModel = require('../models/auditModel');
 const { validationResult } = require('express-validator');
+const ExcelJS = require('exceljs');
 
 // Controller methods for audit operations
 const auditController = {
@@ -150,6 +151,98 @@ const auditController = {
       res.status(500).json({
         success: false,
         message: 'Failed to delete audit',
+        error: error.message
+      });
+    }
+  },
+
+  // Download all audits as XLSX
+  downloadAudits: async (req, res) => {
+    try {
+      // Get all detailed audit data
+      const audits = await auditModel.getAllAuditsDetailed();
+      
+      if (!audits || audits.length === 0) {
+        return res.status(404).json({
+          success: false,
+          message: 'No audit data found'
+        });
+      }
+      
+      // Create a new workbook
+      const workbook = new ExcelJS.Workbook();
+      const worksheet = workbook.addWorksheet('Cybersecurity Audits');
+      
+      // Define columns
+      worksheet.columns = [
+        { header: 'ID', key: 'id', width: 5 },
+        { header: 'Organization', key: 'organization_name', width: 30 },
+        { header: 'Industry Type', key: 'industry_type', width: 20 },
+        { header: 'Contact Person', key: 'contact_person', width: 25 },
+        { header: 'Email', key: 'email', width: 30 },
+        { header: 'Phone', key: 'contact_number', width: 20 },
+        { header: 'Address', key: 'address', width: 30 },
+        { header: 'Total Employees', key: 'total_employees', width: 15 },
+        { header: 'Departments', key: 'num_departments', width: 15 },
+        { header: 'Branches', key: 'num_branches', width: 15 },
+        { header: 'Submission Date', key: 'submission_date', width: 20 }
+      ];
+      
+      // Style the header row
+      worksheet.getRow(1).font = { bold: true, size: 12 };
+      worksheet.getRow(1).fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFE0E0E0' }
+      };
+      
+      // Add rows
+      audits.forEach(audit => {
+        const rowData = {
+          id: audit.id,
+          organization_name: audit.organization_name,
+          industry_type: audit.industry_type,
+          contact_person: audit.contact_person,
+          email: audit.email,
+          contact_number: audit.contact_number,
+          address: audit.address,
+          total_employees: audit.total_employees,
+          num_departments: audit.num_departments,
+          num_branches: audit.num_branches,
+          submission_date: audit.submission_date ? new Date(audit.submission_date).toLocaleString() : ''
+        };
+        worksheet.addRow(rowData);
+      });
+      
+      // Format data
+      worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+        if (rowNumber > 1) { // Skip header row
+          row.eachCell((cell) => {
+            cell.border = {
+              top: { style: 'thin' },
+              left: { style: 'thin' },
+              bottom: { style: 'thin' },
+              right: { style: 'thin' }
+            };
+          });
+        }
+      });
+      
+      // Set response headers
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', 'attachment; filename=cybersecurity_audits.xlsx');
+      
+      // Write to response
+      await workbook.xlsx.write(res);
+      
+      // End the response
+      res.end();
+      
+    } catch (error) {
+      console.error('Error in downloadAudits controller:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to download audits',
         error: error.message
       });
     }

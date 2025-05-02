@@ -48,6 +48,35 @@ class AuditModel {
     }
   }
 
+  // Get all audits with detailed data for export
+  async getAllAuditsDetailed() {
+    try {
+      const [rows] = await pool.query(`
+        SELECT 
+          id, 
+          organization_name, 
+          industry_type, 
+          address, 
+          contact_person, 
+          designation, 
+          contact_number, 
+          email, 
+          total_employees, 
+          num_departments, 
+          num_branches, 
+          submission_date,
+          updated_at
+        FROM audits 
+        ORDER BY submission_date DESC
+      `);
+      
+      return rows;
+    } catch (error) {
+      console.error('Error fetching detailed audits for export:', error);
+      throw error;
+    }
+  }
+
   // Get audit by ID
   async getAuditById(id) {
     try {

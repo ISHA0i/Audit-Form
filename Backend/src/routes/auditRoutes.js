@@ -18,6 +18,9 @@ router.post('/', validateAuditInput, auditController.createAudit);
 // Get all audits
 router.get('/', auditController.getAllAudits);
 
+// Download audits as XLSX
+router.get('/download/xlsx', auditController.downloadAudits);
+
 // Get a single audit by ID
 router.get('/:id', auditController.getAuditById);
 

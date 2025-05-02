@@ -74,6 +74,60 @@ const api = {
     return fetchWithErrorHandling(`${API_BASE_URL}/audits/${id}`, {
       method: 'DELETE',
     });
+  },
+  
+  // Download audits as XLSX
+  downloadAuditsXlsx: async () => {
+    try {
+      console.log('Downloading audits as XLSX');
+      
+      // For file downloads, we need to handle the response differently
+      const response = await fetch(`${API_BASE_URL}/audits/download/xlsx`);
+      
+      if (!response.ok) {
+        let errorMessage;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData?.message || errorData?.error || `Status: ${response.status}`;
+        } catch {
+          errorMessage = `API error: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
+      
+      // Get the blob from the response
+      const blob = await response.blob();
+      
+      // Create a download link
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.style.display = 'none';
+      a.href = url;
+      
+      // Set the file name from Content-Disposition header if available
+      const contentDisposition = response.headers.get('Content-Disposition');
+      let filename = 'cybersecurity_audits.xlsx';
+      
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?([^"]*)"?/);
+        if (filenameMatch && filenameMatch[1]) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      
+      // Clean up
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+      
+      return { success: true, message: 'Download started' };
+    } catch (error) {
+      console.error('Download failed:', error);
+      throw error;
+    }
   }
 };
 

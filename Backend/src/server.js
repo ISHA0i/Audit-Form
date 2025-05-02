@@ -25,15 +25,18 @@ const auditRoutes = require('./routes/auditRoutes');
 // Initialize express app
 const app = express();
 
-// CORS configuration
+// CORS configuration - More permissive during development
 const corsOptions = {
-  origin: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  origin: '*', // Allow all origins during development
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 };
 
 // Middleware
-app.use(helmet()); // Security headers
+app.use(helmet({
+  crossOriginResourcePolicy: { policy: "cross-origin" } // Allow cross-origin requests for resources
+})); // Security headers
 app.use(cors(corsOptions));   // Enable CORS with options
 app.use(morgan('dev')); // Logging
 app.use(express.json()); // Parse JSON bodies

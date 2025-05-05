@@ -147,11 +147,21 @@ const CybersecurityAuditForm = () => {
           <div className="form-group">
             <label>Industry Type:</label>
             <div className="check-group">
-              <label><input type="checkbox" name="industryType" value="Hospital" onChange={handleChange} /> Hospital</label>
-              <label><input type="checkbox" name="industryType" value="Manufacturing" onChange={handleChange} /> Manufacturing</label>
-              <label><input type="checkbox" name="industryType" value="IT" onChange={handleChange} /> IT</label>
               <label>
-                <input type="checkbox" name="industryType" value="Other" onChange={handleChange} /> Other:
+                <input type="checkbox" name="industryType" value="Hospital" onChange={handleChange} />
+                <span>Hospital</span>
+              </label>
+              <label>
+                <input type="checkbox" name="industryType" value="Manufacturing" onChange={handleChange} />
+                <span>Manufacturing</span>
+              </label>
+              <label>
+                <input type="checkbox" name="industryType" value="IT" onChange={handleChange} />
+                <span>IT</span>
+              </label>
+              <label>
+                <input type="checkbox" name="industryType" value="Other" onChange={handleChange} />
+                <span>Other:</span>
                 <input type="text" name="industryOther" className="others" onChange={handleChange} />
               </label>
             </div>
@@ -265,11 +275,21 @@ const CybersecurityAuditForm = () => {
           <div className="form-group">
             <label>Operating Systems Used:</label>
             <div className="check-group">
-              <label><input type="checkbox" name="osWindows" onChange={handleChange} /> Windows</label>
-              <label><input type="checkbox" name="osMac" onChange={handleChange} /> macOS</label>
-              <label><input type="checkbox" name="osLinux" onChange={handleChange} /> Linux</label>
               <label>
-                <input type="checkbox" name="osOther" onChange={handleChange} /> Other:
+                <input type="checkbox" name="osWindows" onChange={handleChange} />
+                <span>Windows</span>
+              </label>
+              <label>
+                <input type="checkbox" name="osMac" onChange={handleChange} />
+                <span>macOS</span>
+              </label>
+              <label>
+                <input type="checkbox" name="osLinux" onChange={handleChange} />
+                <span>Linux</span>
+              </label>
+              <label>
+                <input type="checkbox" name="osOther" onChange={handleChange} />
+                <span>Other:</span>
                 <input type="text" name="osOtherDetails" className="others" onChange={handleChange} />
               </label>
             </div>
@@ -293,9 +313,18 @@ const CybersecurityAuditForm = () => {
           <div className="form-group">
             <label>Type of Servers:</label>
             <div className="check-group">
-              <label><input type="checkbox" name="serverOnPremises" onChange={handleChange} /> On-Premises</label>
-              <label><input type="checkbox" name="serverCloud" onChange={handleChange} /> Cloud-Based</label>
-              <label><input type="checkbox" name="serverHybrid" onChange={handleChange} /> Hybrid</label>
+              <label>
+                <input type="checkbox" name="serverOnPremises" onChange={handleChange} />
+                <span>On-Premises</span>
+              </label>
+              <label>
+                <input type="checkbox" name="serverCloud" onChange={handleChange} />
+                <span>Cloud-Based</span>
+              </label>
+              <label>
+                <input type="checkbox" name="serverHybrid" onChange={handleChange} />
+                <span>Hybrid</span>
+              </label>
             </div>
           </div>
 

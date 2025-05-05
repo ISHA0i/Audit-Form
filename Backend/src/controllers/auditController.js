@@ -70,21 +70,77 @@ const auditController = {
   // Get audit by ID
   getAuditById: async (req, res) => {
     try {
-      const audit = await auditModel.getAuditById(req.params.id);
+      console.log(`GET request received for audit ID: ${req.params.id}`);
       
-      if (!audit) {
-        return res.status(404).json({
+      if (!req.params.id) {
+        return res.status(400).json({
           success: false,
-          message: 'Audit not found'
+          message: 'Audit ID is required'
         });
       }
       
-      res.status(200).json({
-        success: true,
-        data: audit
-      });
+      // Verify database connection first
+      const { pool } = require('../config/db');
+      if (!pool) {
+        console.error('Database pool is not initialized');
+        return res.status(500).json({
+          success: false,
+          message: 'Database connection is not available'
+        });
+      }
+      
+      // Try to get a connection from the pool
+      let connection;
+      try {
+        connection = await pool.getConnection();
+        console.log('Successfully got connection from pool');
+      } catch (connError) {
+        console.error('Failed to get connection from pool:', connError);
+        return res.status(500).json({
+          success: false,
+          message: 'Failed to connect to database',
+          error: connError.message
+        });
+      }
+      
+      try {
+        const audit = await auditModel.getAuditById(req.params.id);
+        
+        if (!audit) {
+          connection.release();
+          return res.status(404).json({
+            success: false,
+            message: 'Audit not found'
+          });
+        }
+        
+        connection.release();
+        res.status(200).json({
+          success: true,
+          data: audit
+        });
+      } catch (queryError) {
+        if (connection) connection.release();
+        throw queryError; // Re-throw to be caught by outer catch
+      }
     } catch (error) {
-      console.error('Error in getAuditById controller:', error);
+      console.error(`Error in getAuditById controller for ID ${req.params.id}:`, error);
+      
+      // Determine if it's a database connection issue
+      const errorMessage = error.message || '';
+      if (
+        errorMessage.includes('ECONNREFUSED') || 
+        errorMessage.includes('ER_ACCESS_DENIED_ERROR') ||
+        errorMessage.includes('ER_BAD_DB_ERROR')
+      ) {
+        return res.status(500).json({
+          success: false,
+          message: 'Database connection error',
+          details: 'There is a problem connecting to the database. Please check your database configuration.',
+          error: error.message
+        });
+      }
+      
       res.status(500).json({
         success: false,
         message: 'Failed to fetch audit',
@@ -131,23 +187,37 @@ const auditController = {
   // Delete audit
   deleteAudit: async (req, res) => {
     try {
+      console.log(`DELETE request received for audit ID: ${req.params.id}`);
+      
+      if (!req.params.id) {
+        console.log('No ID provided in delete request');
+        return res.status(400).json({
+          success: false,
+          message: 'Audit ID is required'
+        });
+      }
+      
       // Check if audit exists
       const audit = await auditModel.getAuditById(req.params.id);
+      
       if (!audit) {
+        console.log(`Audit with ID ${req.params.id} not found for deletion`);
         return res.status(404).json({
           success: false,
           message: 'Audit not found'
         });
       }
       
-      await auditModel.deleteAudit(req.params.id);
+      console.log(`Deleting audit with ID: ${req.params.id}`);
+      const result = await auditModel.deleteAudit(req.params.id);
+      console.log('Delete result:', result);
       
       res.status(200).json({
         success: true,
         message: 'Audit deleted successfully'
       });
     } catch (error) {
-      console.error('Error in deleteAudit controller:', error);
+      console.error(`Error in deleteAudit controller for ID ${req.params.id}:`, error);
       res.status(500).json({
         success: false,
         message: 'Failed to delete audit',

@@ -1,3 +1,6 @@
+/* Import theme */
+@import url('./theme.css');
+
 /* Reset and Base Styles */
 * {
   margin: 0;
@@ -42,48 +45,121 @@ p {
   margin-bottom: 1rem;
 }
 
-/* Layout */
+/* App Layout */
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: var(--background-primary);
 }
 
 .app-header {
-  background-color: #2c3e50;
-  padding: 15px 20px;
-  color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--primary-dark);
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--white);
+  box-shadow: var(--shadow-md);
+  position: sticky;
+  top: 0;
+  z-index: var(--z-index-dropdown);
 }
 
 .app-nav {
   display: flex;
-  gap: 20px;
-  max-width: 1200px;
+  gap: var(--spacing-lg);
+  max-width: var(--container-width-lg);
   margin: 0 auto;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .nav-link {
-  color: white;
+  color: var(--white);
   text-decoration: none;
-  font-weight: 500;
-  padding: 5px 10px;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+  font-weight: var(--font-weight-medium);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+  transition: var(--transition-base);
+  position: relative;
 }
 
 .nav-link:hover {
   background-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.nav-link.active {
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  height: 3px;
+  width: 100%;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--white);
+  border-radius: var(--border-radius-sm);
 }
 
 .app-content {
   flex: 1;
-  padding: 20px;
-  max-width: 1200px;
+  padding: var(--spacing-md) var(--spacing-lg);
+  max-width: var(--container-width-lg);
   margin: 0 auto;
   width: 100%;
+}
+
+/* Typography extras */
+.text-lead {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-secondary);
+  line-height: var(--line-height-loose);
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+/* Page section */
+.page-section {
+  margin-bottom: var(--spacing-xl);
+}
+
+.section-title {
+  font-size: var(--font-size-xxl);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-sm);
+}
+
+/* Cards */
+.card {
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  margin-bottom: var(--spacing-md);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.card-title {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* Animations */
@@ -102,22 +178,81 @@ p {
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Responsive Design */
+@keyframes slideIn {
+  from {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.3s ease-out;
+}
+
+/* Utility classes */
+.mb-sm { margin-bottom: var(--spacing-sm); }
+.mb-md { margin-bottom: var(--spacing-md); }
+.mb-lg { margin-bottom: var(--spacing-lg); }
+.mb-xl { margin-bottom: var(--spacing-xl); }
+
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+
+.pb-sm { padding-bottom: var(--spacing-sm); }
+.pb-md { padding-bottom: var(--spacing-md); }
+.pb-lg { padding-bottom: var(--spacing-lg); }
+.pb-xl { padding-bottom: var(--spacing-xl); }
+
+.pt-sm { padding-top: var(--spacing-sm); }
+.pt-md { padding-top: var(--spacing-md); }
+.pt-lg { padding-top: var(--spacing-lg); }
+.pt-xl { padding-top: var(--spacing-xl); }
+
+/* Responsive Media Queries */
 @media (max-width: 768px) {
-  #root {
-    padding: 0.5rem;
+  .app-header {
+    padding: var(--spacing-sm) var(--spacing-md);
   }
 
-  main {
-    padding: 1rem 0;
+  .app-nav {
+    gap: var(--spacing-sm);
   }
 
   .app-content {
-    padding: 15px;
+    padding: var(--spacing-sm);
   }
   
+  .section-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .card {
+    padding: var(--spacing-md);
+  }
+  
+  .text-lead {
+    font-size: var(--font-size-md);
+  }
+}
+
+@media (max-width: 480px) {
   .app-nav {
-    gap: 10px;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+  
+  .nav-link {
+    padding: var(--spacing-xs) var(--spacing-xs);
+  }
+  
+  .card {
+    padding: var(--spacing-sm);
   }
 }
 

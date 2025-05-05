@@ -28,12 +28,23 @@ const AdminPanel = () => {
   const fetchAudits = async () => {
     try {
       setLoading(true);
-      const response = await api.getAudits();
-      setAudits(response.data || []);
       setError(null);
+      
+      console.log('Attempting to fetch audits...');
+      const response = await api.getAudits();
+      
+      if (!response || !response.data) {
+        throw new Error('Invalid response from server');
+      }
+      
+      console.log('Fetched audits successfully:', response.data.length);
+      setAudits(response.data || []);
     } catch (err) {
+      console.error('Error fetching audits:', err);
       setError('Failed to fetch audits: ' + (err.message || 'Unknown error'));
-      showToast('Failed to fetch audits', 'error');
+      showToast('Failed to fetch audits: ' + (err.message || 'Unknown error'), 'error');
+      // Set to empty array to prevent undefined errors in rendering
+      setAudits([]);
     } finally {
       setLoading(false);
     }
@@ -61,11 +72,21 @@ const AdminPanel = () => {
   // Function to handle audit deletion after confirmation
   const handleDelete = async () => {
     try {
-      await api.deleteAudit(targetAuditId);
+      console.log('Attempting to delete audit with ID:', targetAuditId);
+      
+      if (!targetAuditId) {
+        showToast('Delete failed: No audit ID specified', 'error');
+        return;
+      }
+      
+      const result = await api.deleteAudit(targetAuditId);
+      console.log('Delete result:', result);
+      
       // Refresh the list
       fetchAudits();
       showToast('Audit deleted successfully', 'success');
     } catch (err) {
+      console.error('Delete error details:', err);
       showToast('Failed to delete audit: ' + (err.message || 'Unknown error'), 'error');
     } finally {
       setShowDeleteConfirm(false);
@@ -230,27 +251,60 @@ const AdminPanel = () => {
                   <td>{audit.email}</td>
                   <td>{formatDate(audit.submission_date)}</td>
                   <td className="action-buttons">
-                    <button
+                    <Button
                       onClick={() => handleViewDetails(audit.id)}
                       className="icon-button view-button"
                       title="View Details"
+                      aria-label="View audit details"
+                      size="small"
+                      variant="text"
+                      style={{ 
+                        width: '34px', 
+                        height: '34px', 
+                        minWidth: '34px', 
+                        padding: '0',
+                        margin: '0 2px',
+                        borderRadius: '50%'
+                      }}
                     >
                       <FaEye />
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       onClick={() => handleEditInit(audit.id)}
                       className="icon-button edit-button"
                       title="Edit Audit"
+                      aria-label="Edit audit"
+                      size="small"
+                      variant="text"
+                      style={{ 
+                        width: '34px', 
+                        height: '34px', 
+                        minWidth: '34px', 
+                        padding: '0',
+                        margin: '0 2px',
+                        borderRadius: '50%'
+                      }}
                     >
                       <FaEdit />
-                    </button>
-                    <button
+                    </Button>
+                    <Button
                       onClick={() => confirmDelete(audit.id)}
                       className="icon-button delete-button"
                       title="Delete Audit"
+                      aria-label="Delete audit"
+                      size="small"
+                      variant="text"
+                      style={{ 
+                        width: '34px', 
+                        height: '34px', 
+                        minWidth: '34px', 
+                        padding: '0',
+                        margin: '0 2px',
+                        borderRadius: '50%'
+                      }}
                     >
                       <FaTrashAlt />
-                    </button>
+                    </Button>
                   </td>
                 </tr>
               ))}

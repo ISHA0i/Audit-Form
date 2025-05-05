@@ -1,0 +1,369 @@
+/* Responsive styles for the Cybersecurity Audit Portal */
+
+/* Base styles (mobile first) */
+:root {
+  --container-width-sm: 100%;
+  --container-width-md: 90%;
+  --container-width-lg: 1200px;
+  --content-padding-xs: var(--spacing-xs);
+  --content-padding-sm: var(--spacing-sm);
+  --content-padding-md: var(--spacing-md);
+  --content-padding-lg: var(--spacing-lg);
+  --form-width: 100%;
+  --section-padding: 1rem;
+  --border-radius: 8px;
+  --input-height: 44px;
+}
+
+/* Container styles */
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-primary);
+}
+
+.content-container {
+  width: var(--container-width-sm);
+  max-width: var(--container-width-lg);
+  margin: 0 auto;
+  padding: var(--content-padding-sm);
+  flex: 1;
+}
+
+.form-container {
+  width: 100%;
+  flex: 1;
+  padding: var(--spacing-md);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+/* Form elements */
+.audit-form {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.form-section {
+  padding: var(--section-padding);
+  margin-bottom: var(--spacing-md);
+  background-color: var(--background-secondary);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-color);
+  transition: var(--transition-base);
+}
+
+.form-section:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.section-header {
+  background-color: var(--primary-dark);
+  color: var(--white);
+  padding: var(--spacing-md) var(--spacing-lg);
+  margin: calc(-1 * var(--section-padding));
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.form-group {
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+/* Form element spacing */
+.form-group + .form-group {
+  margin-top: var(--spacing-md);
+}
+
+/* Labels */
+.form-group label {
+  display: block;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+/* Required field indicator */
+.required {
+  color: var(--error);
+  margin-left: var(--spacing-xs);
+}
+
+.error-message {
+  color: var(--error);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-xs);
+}
+
+.form-group.has-error input,
+.form-group.has-error textarea,
+.form-group.has-error select {
+  border-color: var(--error);
+}
+
+/* Radio and Checkbox containers */
+.radio-group,
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.radio-option,
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-height: var(--input-height);
+  padding: var(--spacing-sm);
+  background-color: var(--white);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  transition: var(--transition-base);
+}
+
+.radio-option:hover,
+.checkbox-option:hover {
+  background-color: var(--background-primary);
+  border-color: var(--primary-medium);
+}
+
+/* Buttons */
+.button-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  width: 100%;
+  margin-top: var(--spacing-lg);
+  padding: var(--spacing-md);
+}
+
+.button-container button {
+  min-height: var(--input-height);
+  font-size: var(--font-size-md);
+  width: 100%;
+  background-color: var(--primary-dark);
+  color: var(--white);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition-base);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: var(--font-weight-medium);
+}
+
+.button-container button:hover {
+  background-color: var(--primary-medium);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.button-container button:active {
+  transform: translateY(0);
+}
+
+/* Toast notifications */
+.toast-container {
+  width: 90%;
+  max-width: 400px;
+  position: fixed;
+  bottom: var(--spacing-md);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: var(--z-index-toast);
+  background-color: var(--background-secondary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius);
+  padding: var(--spacing-md);
+}
+
+/* Loading indicator */
+.loading-container {
+  padding: var(--spacing-md);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+  color: var(--text-primary);
+}
+
+/* Form Progress */
+.form-progress {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-lg);
+  position: relative;
+}
+
+.form-progress::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: var(--border-color);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.progress-step {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.step-number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  background-color: var(--background-secondary);
+  border: 2px solid var(--border-color);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-base);
+}
+
+.progress-step.active .step-number {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+  color: var(--white);
+}
+
+/* Mobile specific adjustments */
+@media screen and (max-width: 480px) {
+  .form-container {
+    padding: var(--spacing-sm);
+    gap: var(--spacing-sm);
+  }
+
+  .form-section {
+    padding: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .section-header {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-size-sm);
+  }
+
+  .form-group {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .button-container {
+    padding: var(--spacing-sm);
+    margin-top: var(--spacing-md);
+  }
+
+  .step-number {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-sm);
+  }
+  
+}
+
+/* Tablet styles */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  :root {
+    --container-width-sm: 90%;
+  }
+  
+  .content-container {
+    padding: var(--content-padding-md);
+  }
+
+  .button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-container button {
+    width: auto;
+    min-width: 120px;
+  }
+
+  .radio-group,
+  .checkbox-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    flex: 0 0 calc(50% - var(--spacing-sm));
+  }
+  
+}
+
+/* Desktop styles */
+@media screen and (min-width: 769px) {
+  :root {
+    --container-width-sm: 80%;
+  }
+  
+  .content-container {
+    padding: var(--content-padding-lg);
+  }
+
+  .form-container {
+    max-width: var(--container-width-lg);
+    padding: var(--spacing-lg);
+  }
+
+  .form-section {
+    padding: var(--spacing-lg);
+  }
+
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-md);
+    align-items: start;
+  }
+
+  .button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+
+  .button-container button {
+    width: auto;
+    min-width: 150px;
+  }
+
+  .radio-group,
+  .checkbox-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .radio-option,
+  .checkbox-option {
+    flex: 0 0 calc(33.33% - var(--spacing-sm));
+  }
+  
+} 
